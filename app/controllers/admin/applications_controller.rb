@@ -17,5 +17,11 @@ class Admin::ApplicationsController < ApplicationController
 
   def check_status
     @application.check_status
+
+    update_pets! if @application.approved?
+  end
+
+  def update_pets!
+    Pet.update_pets!(@application)
   end
 end
