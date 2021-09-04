@@ -108,4 +108,27 @@ RSpec.describe 'applications show' do
       expect(page).not_to have_content('Pending')
     end
   end
+
+  describe 'adoptable status to false on application with pet approval' do
+    let(:shelter) { Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9) }
+    let(:pet) { Pet.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true, shelter_id: shelter.id) }
+    let(:app) { Application.create!(
+                    name: 'Tanner',
+                    address: '12345 Street St',
+                    city: 'Austin',
+                    state: 'Texas',
+                    zipcode: '12345'
+                ) }
+    it 'updates the pet adoptable status on application approval' do
+      app.pets << pet
+
+      visit admin_application_path(app)
+
+      click_button 'Approve'
+
+      visit "/pets/#{pet.id}"
+
+      expect(page).to have_content('false')
+    end
+  end
 end

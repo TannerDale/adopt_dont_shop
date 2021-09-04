@@ -40,5 +40,36 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe 'updating pets for an approved application' do
+      before :each do
+        @application = Application.create(
+          name: 'Tanner',
+          address: '12345',
+          city: 'city',
+          state: 'state',
+          zipcode: '12345'
+        )
+        @application.pets << @pet_1
+        @application.pets << @pet_2
+        @application.update_attribute(:status, 2)
+      end
+
+      describe '.check_applications' do
+        it 'can find pets for an application' do
+          expect(Pet.pets_for_application(@application)).to eq([@pet_1, @pet_2])
+        end
+      end
+
+      describe '.update_pets' do
+        it 'can make pets not adoptable if it is on an approved applcation' do
+          Pet.update_pets!(@application)
+
+          [@pet_1, @pet_2].each do |pet|
+            expect(pet.reload.adoptable).to be(false)
+          end
+        end
+      end
+    end
   end
 end
