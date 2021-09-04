@@ -19,7 +19,7 @@ RSpec.describe 'admin shelters index' do
       )
       @app.pets << @pet1
       @app.pets << @pet2
-      @app.set_to_pending
+      @app.update_attribute(:status, 1)
 
       visit admin_shelters_path
     end
