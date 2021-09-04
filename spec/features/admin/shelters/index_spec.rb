@@ -42,5 +42,19 @@ RSpec.describe 'admin shelters index' do
         expect('Fancy pets of Colorado').to appear_before('RGV animal shelter', only_text: true)
       end
     end
+
+    it 'has links to all to shelters' do
+      shelters = [@shelter_1, @shelter_2, @shelter_3]
+
+      within '#all-shelters' do
+        shelters.each do |shelter|
+          click_link shelter.name
+
+          expect(current_path).to eq("/shelters/#{shelter.id}")
+
+          visit admin_shelters_path
+        end
+      end
+    end
   end
 end
