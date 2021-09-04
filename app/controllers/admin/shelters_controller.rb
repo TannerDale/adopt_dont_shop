@@ -4,7 +4,7 @@ class Admin::SheltersController < ApplicationController
     @pending_shelters = Shelter.pending_applications
   end
 
-  def show
-    @shelter = Shelter.find(params[:id])
-  end
+  # def show
+  #   @shelter = Shelter.find(params[:id])
+  # end
 end
