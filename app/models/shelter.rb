@@ -39,7 +39,8 @@ class Shelter < ApplicationRecord
   }
 
   scope :pending_applications, -> {
-    Shelter.joins(pets: :applications).where('applications.status = ?', 1).distinct
+    Shelter.joins(pets: :applications).where('applications.status = ?', 1)
+    .distinct.order(:name)
   }
 
   def formatted_info

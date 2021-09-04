@@ -17,8 +17,8 @@ RSpec.describe 'admin shelters index' do
         zipcode: 'a',
         reason: 'pets'
       )
-      @app.pets << @pet1
       @app.pets << @pet2
+      @app.pets << @pet3
       @app.update_attribute(:status, 1)
 
       visit admin_shelters_path
@@ -31,9 +31,15 @@ RSpec.describe 'admin shelters index' do
 
     it 'has shelters with applications that are pending' do
       within '#pending-apps' do
-        expect(page).to have_content(@shelter_1.name)
         expect(page).to have_content(@shelter_2.name)
-        expect(page).not_to have_content(@shelter_3.name)
+        expect(page).to have_content(@shelter_3.name)
+        expect(page).not_to have_content(@shelter_1.name)
+      end
+    end
+
+    it 'has pending shelters in alphabetical order' do
+      within '#pending-apps' do
+        expect('Fancy pets of Colorado').to appear_before('RGV animal shelter', only_text: true)
       end
     end
   end
