@@ -18,7 +18,11 @@ class Application < ApplicationRecord
     status == 'In Progress'
   end
 
-  def set_to_pending
-    update_attribute(:status, 1)
+  def find_app_pet(pet)
+    application_pets.find_by(pet_id: pet.id).id
+  end
+
+  def pet_approved?(pet)
+    ApplicationPet.find(find_app_pet(pet)).approved
   end
 end

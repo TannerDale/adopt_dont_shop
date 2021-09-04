@@ -32,7 +32,7 @@ class ApplicationsController < ApplicationController
     app = current_application
     if !params[:application][:reason].blank?
       app.update!(application_params)
-      app.set_to_pending
+      app.update_attribute(:status, 1)
 
       redirect_to application_path(app)
     else
