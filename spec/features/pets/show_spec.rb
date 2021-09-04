@@ -25,4 +25,41 @@ RSpec.describe 'the shelter show' do
     expect(page).to have_current_path('/pets')
     expect(page).to_not have_content(pet.name)
   end
+
+  describe 'adoptable status changes when application is approved' do
+    before :each do
+      @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      @pet1 = @shelter_1.pets.create!(name: 'Rifle', breed: 'terrier', age: 11, adoptable: true)
+      @app = Application.create!(
+        name: 'Tanner',
+        address: '123',
+        city: 'a',
+        state: 'b',
+        zipcode: 'a',
+        reason: 'pets'
+      )
+      @app2 = Application.create!(
+        name: 'Not Tanner',
+        address: '123',
+        city: 'a',
+        state: 'b',
+        zipcode: 'a',
+        reason: 'pets'
+      )
+      @app.pets << @pet1
+      @app2.pets << @pet1
+
+      @app.update_attribute(:status, 1)
+
+      visit admin_application_path(@app)
+    end
+
+    it 'changes on approval' do
+      click_button 'Approve'
+
+      visit admin_application_path(@app2)
+
+      expect(page).not_to have_content('true')
+    end
+  end
 end
