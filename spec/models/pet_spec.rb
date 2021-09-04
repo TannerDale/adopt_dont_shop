@@ -27,6 +27,12 @@ RSpec.describe Pet, type: :model do
       end
     end
 
+    describe '#search_for' do
+      it 'returns partial matches' do
+        expect(Pet.search_for("A")).to eq([@pet_1, @pet_2])
+      end
+    end
+
     describe '#adoptable' do
       it 'returns adoptable pets' do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
