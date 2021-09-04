@@ -1,0 +1,14 @@
+<h1>Admin Application Page</h1>
+
+<h3>Pets for Application <%= @application.id %></h3>
+
+<% @application.pets.each do |pet| %>
+  <div id="<%= pet.name %>-status">
+    <p><%= pet.name %></p>
+    <% if  @application.pet_approved?(pet) %>
+      <p>Approved!</p>
+    <% else %>
+      <%= button_to 'Approve', application_pet_path(@application.find_app_pet(pet)), method: :patch, params: { application_id: @application.id }, class: 'btn btn-success' %>
+    <% end %>
+  </div>
+<% end %>
