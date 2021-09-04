@@ -1,7 +1,11 @@
 class ApplicationPetsController < ApplicationController
   def create
-    ApplicationPet.create(app_pet_params)
-    flash[:success] = "Pet Added"
+    app_pet = ApplicationPet.new(app_pet_params)
+    if app_pet.save
+      flash[:success] = "Pet Added"
+    else
+      flash[:alert] = "Pet Can Only Be Added Once"
+    end
 
     redirect_to application_path(params[:application_id])
   end

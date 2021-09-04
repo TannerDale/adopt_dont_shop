@@ -29,5 +29,15 @@ RSpec.describe 'admin applications show' do
         expect(page).to have_content('Approved!')
       end
     end
+
+    it 'can reject a pet' do
+      within '#Snickers-status' do
+        click_button 'Reject'
+
+        expect(current_path).to eq(admin_application_path(@app.id))
+
+        expect(page).to have_content('Rejected!')
+      end
+    end
   end
 end
