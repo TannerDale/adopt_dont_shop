@@ -100,5 +100,21 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.pending_applications).to eq([@shelter_1])
       end
     end
+
+    describe 'formatted name and address SQl only' do
+      it '#formatted_info' do
+        expect(@shelter_1.formatted_info).to eq('Aurora shelter - Aurora, CO')
+      end
+
+      it '#shelter_info' do
+        expected = {
+          "name" => 'Aurora shelter',
+          "city" => 'Aurora, CO'
+        }
+        result = @shelter_1.shelter_info.first.serializable_hash
+
+        expect(result > expected).to be(true)
+      end
+    end
   end
 end
