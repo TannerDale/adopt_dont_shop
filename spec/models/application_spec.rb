@@ -72,4 +72,35 @@ RSpec.describe Application, type: :model do
       expect(@app.app_pet(@pet).approved?).to be(true)
     end
   end
+
+  describe 'approving applcation' do
+    before :each do
+      @app = Application.create!(name: 'A', address: 'a', city: 'a', state: 'a', zipcode: 'a')
+      @shelter = Shelter.create!(name: 'a', foster_program: true, rank: 10000000, city: 'a')
+      @pet = Pet.create!(name: 'Rifle', age: '11', breed: 'terrier', adoptable: true, shelter_id: @shelter.id)
+      @pet2 = Pet.create!(name: 'Rifle', age: '11', breed: 'terrier', adoptable: true, shelter_id: @shelter.id)
+
+      @app_pet = ApplicationPet.create!(application_id: @app.id, pet_id: @pet.id)
+      @app_pet2 = ApplicationPet.create!(application_id: @app.id, pet_id: @pet2.id)
+      @app.update_attribute(:status, 1)
+    end
+
+    it 'can #approved? and #check_if_approved' do
+      @app_pet.update_attribute(:status, 1)
+
+      expect(@app.approved?).to be(false)
+
+      @app.check_if_approved
+
+      expect(@app.status).to eq('Pending')
+
+      @app_pet2.update_attribute(:status, 1)
+
+      expect(@app.approved?).to be(true)
+
+      @app.check_if_approved
+
+      expect(@app.status).to eq('Accepted')
+    end
+  end
 end

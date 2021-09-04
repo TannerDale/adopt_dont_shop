@@ -52,7 +52,7 @@ RSpec.describe 'applications show' do
       expect(page).to have_content(@pet_2.age)
     end
 
-    it 'can add pets to an application' do
+    it 'can add pets to an application, but only once' do
       fill_in 'Name', with: 'claw'
       click_on 'Find'
 
@@ -61,6 +61,14 @@ RSpec.describe 'applications show' do
       end
 
       expect(@app.pets).to include(@pet_2)
+
+      click_on 'Find'
+
+      within "div##{@pet_2.name}" do
+        click_button 'Adopt this Pet'
+      end
+
+      expect(page).to have_content('Pet Can Only Be Added Once')
     end
   end
 
