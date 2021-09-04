@@ -41,4 +41,15 @@ class Shelter < ApplicationRecord
   scope :pending_applications, -> {
     Shelter.joins(pets: :applications).where('applications.status = ?', 1).distinct
   }
+
+  def formatted_info
+    info = shelter_info.first
+    "#{info[:name]} - #{info[:city]}"
+  end
+
+  def shelter_info
+    Shelter.find_by_sql [
+      'SELECT shelters.name, shelters.city FROM shelters WHERE shelters.id = ?', self.id
+    ]
+  end
 end
