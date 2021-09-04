@@ -22,4 +22,8 @@ class Pet < ApplicationRecord
     .where('applications.id = ? AND applications.status = ?', app.id, 2)
     .where('pets.adoptable = ?', true)
   }
+
+  scope :search_for, ->(name) {
+    search(name).where(adoptable: true)
+  }
 end
