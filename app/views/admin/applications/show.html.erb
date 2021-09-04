@@ -5,10 +5,13 @@
 <% @application.pets.each do |pet| %>
   <div id="<%= pet.name %>-status">
     <p><%= pet.name %></p>
-    <% if  @application.pet_approved?(pet) %>
+    <% if  @application.app_pet(pet).approved? %>
       <p>Approved!</p>
+    <% elsif @application.app_pet(pet).rejected?%>
+      <p>Rejected!</p>
     <% else %>
-      <%= button_to 'Approve', application_pet_path(@application.find_app_pet(pet)), method: :patch, params: { application_id: @application.id }, class: 'btn btn-success' %>
+      <%= button_to 'Approve', application_pet_path(application_pet(pet)), method: :patch, params: { application_id: @application.id, status: 1 }, class: 'btn btn-success' %>
+      <%= button_to 'Reject', application_pet_path(application_pet(pet)), method: :patch, params: { application_id: @application.id, status: 2 }, class: 'btn btn-danger' %>
     <% end %>
   </div>
 <% end %>

@@ -22,7 +22,7 @@ class Application < ApplicationRecord
     application_pets.find_by(pet_id: pet.id).id
   end
 
-  def pet_approved?(pet)
-    ApplicationPet.find(find_app_pet(pet)).approved
+  def app_pet(pet)
+    ApplicationPet.find(find_app_pet(pet))
   end
 end

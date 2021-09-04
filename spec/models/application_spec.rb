@@ -65,11 +65,11 @@ RSpec.describe Application, type: :model do
     end
 
     it '#pet_approved?' do
-      expect(@app.pet_approved?(@pet)).to be(false)
+      expect(@app.app_pet(@pet).approved?).to be(false)
 
-      @app_pet.update_attribute(:approved, true)
+      @app_pet.update_attribute(:status, 1)
 
-      expect(@app.pet_approved?(@pet)).to be(true)
+      expect(@app.app_pet(@pet).approved?).to be(true)
     end
   end
 end
