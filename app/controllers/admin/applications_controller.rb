@@ -1,5 +1,5 @@
 class Admin::ApplicationsController < ApplicationController
-  before_action :current_application, :check_if_approved
+  before_action :current_application, :check_status
   helper_method :application_pet
 
   def show
@@ -15,7 +15,7 @@ class Admin::ApplicationsController < ApplicationController
     @application.find_app_pet(pet)
   end
 
-  def check_if_approved
-    @application.check_if_approved
+  def check_status
+    @application.check_status
   end
 end
