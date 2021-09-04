@@ -8,10 +8,12 @@
     <p><%= pet.name %></p>
     <% if  @application.app_pet(pet).approved? %>
       <p>Approved!</p>
-    <% elsif @application.app_pet(pet).rejected?%>
+    <% elsif @application.app_pet(pet).rejected? %>
       <p>Rejected!</p>
     <% elsif !@application.rejected? %>
-      <%= button_to 'Approve', application_pet_path(application_pet(pet)), method: :patch, params: { application_id: @application.id, status: 1 }, class: 'btn btn-success' %>
+      <% if pet.adoptable %>
+        <%= button_to 'Approve', application_pet_path(application_pet(pet)), method: :patch, params: { application_id: @application.id, status: 1 }, class: 'btn btn-success' %>
+      <% end %>
       <%= button_to 'Reject', application_pet_path(application_pet(pet)), method: :patch, params: { application_id: @application.id, status: 2 }, class: 'btn btn-danger' %>
     <% end %>
   </div>
