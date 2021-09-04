@@ -12,4 +12,14 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  scope :update_pets!, ->(app) {
+    pets_for_application(app).update_all(adoptable: false)
+  }
+
+  scope :pets_for_application, ->(app) {
+    joins(application_pets: :application)
+    .where('applications.id = ? AND applications.status = ?', app.id, 2)
+    .where('pets.adoptable = ?', true)
+  }
 end
