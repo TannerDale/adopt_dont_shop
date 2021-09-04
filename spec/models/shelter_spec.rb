@@ -13,7 +13,7 @@ RSpec.describe Shelter, type: :model do
   end
 
   before(:each) do
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_1 = Shelter.create(name: 'Lurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
@@ -70,12 +70,12 @@ RSpec.describe Shelter, type: :model do
 
     describe 'reverse alphabetical by name' do
       it '#reverse_alphabetical' do
-        expect(Shelter.reverse_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
+        expect(Shelter.reverse_alphabetical).to eq([@shelter_2, @shelter_1, @shelter_3])
       end
     end
 
     describe 'shelters with pending applications' do
-      it '#pending_ap' do
+      it '#pending_applications in alphabetical order' do
         app = Application.create!(
           name: 'Tanner',
           address: '123',
@@ -84,31 +84,24 @@ RSpec.describe Shelter, type: :model do
           zipcode: 'a',
           reason: 'pets'
         )
-        app2 = Application.create!(
-          name: 'Rennat',
-          address: '321',
-          city: 'b',
-          state: 'a',
-          zipcode: 'b',
-          reason: 'step'
-        )
         app.pets << @pet_1
         app.pets << @pet_2
+        app.pets << @pet_3
 
         app.update_attribute(:status, 1)
 
-        expect(Shelter.pending_applications).to eq([@shelter_1])
+        expect(Shelter.pending_applications).to eq([@shelter_3, @shelter_1])
       end
     end
 
     describe 'formatted name and address SQl only' do
       it '#formatted_info' do
-        expect(@shelter_1.formatted_info).to eq('Aurora shelter - Aurora, CO')
+        expect(@shelter_1.formatted_info).to eq('Lurora shelter - Aurora, CO')
       end
 
       it '#shelter_info' do
         expected = {
-          "name" => 'Aurora shelter',
+          "name" => 'Lurora shelter',
           "city" => 'Aurora, CO'
         }
         result = @shelter_1.shelter_info.first.serializable_hash
