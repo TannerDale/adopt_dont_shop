@@ -12,8 +12,4 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
-
-  scope :search_for, ->(pet_name) {
-    where('name ILIKE ?', '%' + pet_name + '%')
-  }
 end
