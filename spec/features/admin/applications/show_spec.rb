@@ -150,6 +150,7 @@ RSpec.describe 'admin applications show' do
 
       expect(page).not_to have_button('Approve')
       expect(page).to have_button('Reject')
+      expect(page).to have_content('Pet already approved for adoption.')
     end
   end
 end
