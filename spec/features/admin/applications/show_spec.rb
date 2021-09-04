@@ -100,5 +100,20 @@ RSpec.describe 'admin applications show' do
       expect(page).to have_content('Accepted')
       expect(page).not_to have_content('Pending')
     end
+
+    it 'updates status to rejected when one pet is rejected' do
+      expect(page).to have_content('Pending')
+
+      within '#Snickers-status' do
+        click_button 'Approve'
+      end
+
+      within '#Rifle-status' do
+        click_button 'Reject'
+      end
+
+      expect(page).to have_content('Rejected!')
+      expect(page).not_to have_content('Pending')
+    end
   end
 end

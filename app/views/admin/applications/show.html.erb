@@ -10,7 +10,7 @@
       <p>Approved!</p>
     <% elsif @application.app_pet(pet).rejected?%>
       <p>Rejected!</p>
-    <% else %>
+    <% elsif !@application.rejected? %>
       <%= button_to 'Approve', application_pet_path(application_pet(pet)), method: :patch, params: { application_id: @application.id, status: 1 }, class: 'btn btn-success' %>
       <%= button_to 'Reject', application_pet_path(application_pet(pet)), method: :patch, params: { application_id: @application.id, status: 2 }, class: 'btn btn-danger' %>
     <% end %>
