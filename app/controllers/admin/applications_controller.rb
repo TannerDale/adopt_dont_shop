@@ -1,16 +1,8 @@
 class Admin::ApplicationsController < ApplicationController
-  before_action :current_application
+  before_action :current_application, :check_if_approved
   helper_method :application_pet
 
   def show
-  end
-
-  def update
-    if params[:status] == 'accepted'
-      @application.update_attribute(:status, 2)
-    elsif params[:status] == 'rejected'
-      @application.update_attribute(:status, 3)
-    end
   end
 
   private
@@ -21,5 +13,9 @@ class Admin::ApplicationsController < ApplicationController
 
   def application_pet(pet)
     @application.find_app_pet(pet)
+  end
+
+  def check_if_approved
+    @application.check_if_approved
   end
 end

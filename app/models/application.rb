@@ -25,4 +25,12 @@ class Application < ApplicationRecord
   def app_pet(pet)
     ApplicationPet.find(find_app_pet(pet))
   end
+
+  def check_if_approved
+    update_attribute(:status, 2) if approved?
+  end
+
+  def approved?
+    application_pets.where(status: 'approved') == application_pets
+  end
 end
