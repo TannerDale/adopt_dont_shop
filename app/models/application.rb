@@ -8,7 +8,7 @@ class Application < ApplicationRecord
   has_many :application_pets, dependent: :destroy
   has_many :pets, through: :application_pets
 
-  enum status: ['In Progress', 'Pending', 'Accepted', 'Rejectd']
+  enum status: ['In Progress', 'Pending', 'Accepted', 'Rejected']
 
   def submittable?
     not_submitted? && pets.length > 0
@@ -18,19 +18,24 @@ class Application < ApplicationRecord
     status == 'In Progress'
   end
 
-  def find_app_pet(pet)
-    application_pets.find_by(pet_id: pet.id).id
-  end
-
   def app_pet(pet)
     ApplicationPet.find(find_app_pet(pet))
   end
 
-  def check_if_approved
+  def find_app_pet(pet)
+    application_pets.find_by(pet_id: pet.id).id
+  end
+
+  def check_status
     update_attribute(:status, 2) if approved?
+    update_attribute(:status, 3) if rejected?
   end
 
   def approved?
     application_pets.where(status: 'approved') == application_pets
+  end
+
+  def rejected?
+    application_pets.where(status: 'rejected').exists?
   end
 end
