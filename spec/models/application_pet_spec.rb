@@ -14,7 +14,7 @@ RSpec.describe ApplicationPet, type: :model do
     end
 
     it 'has an approval of false by default' do
-      expect(@app_pet.approved).to be(false)
+      expect(@app_pet.approved?).to be(false)
     end
   end
 end
