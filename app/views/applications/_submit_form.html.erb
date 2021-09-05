@@ -1,0 +1,7 @@
+<%= form_with model: application, method: :patch, local: true do |f| %>
+    <div class="form-floating mb-3">
+      <%= f.text_field :reason, class: "form-control", id: "floatingInput", placeholder: 'Why I would be a great owner.' %>
+      <%= f.label 'Why I would be a great owner.', for: "floatingInput" %>
+    </div>
+  <%= f.submit 'Submit Application', class: 'btn btn-primary' %>
+<% end %>

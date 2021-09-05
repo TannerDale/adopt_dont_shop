@@ -1,0 +1,5 @@
+<% shelters.each do |shelter| %>
+    <h4><%= link_to shelter.name, "/shelters/#{shelter.id}" %></h4>
+    <p><%= link_to "#{shelter.name}'s Admin Page", admin_shelter_path(shelter.id) %></p>
+    <p>Created at: <%= shelter.created_at %></p>
+  <% end %>

@@ -1,0 +1,12 @@
+<h3>Matching Pets: </h3>
+  <% pets.each do |pet| %>
+    <div id='<%= pet.name %>'>
+      <p><b><%= pet.name %></b></p>
+      <ul>
+        <li>Breed: <%= pet.breed %></li>
+        <li>Age: <%= pet.age %></li>
+      </ul>
+    <%= button_to 'Adopt this Pet', application_pets_path, method: :post, params: { pet_id: pet.id, application_id: application.id }, class: 'btn btn-outline-success btn-sm' %>
+    <br/>
+  </div>
+<%end %>
