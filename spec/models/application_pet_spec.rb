@@ -23,6 +23,11 @@ RSpec.describe ApplicationPet, type: :model do
       @app_pet = ApplicationPet.create!(application_id: @app.id, pet_id: @pet.id)
     end
 
+    it 'adds pet to applcation and application to pet' do
+      expect(@app.pets).to eq([@pet])
+      expect(@pet.applications).to eq([@app])
+    end
+
     it 'has an approval of false by default' do
       expect(@app_pet.approved?).to be(false)
     end
