@@ -1,8 +1,4 @@
 class ApplicationsController < ApplicationController
-
-  def index
-  end
-
   def show
     @application = current_application
     if params[:name]
@@ -30,15 +26,11 @@ class ApplicationsController < ApplicationController
     if !params[:application][:reason].blank?
       app.update!(application_params)
       app.update_attribute(:status, 1)
-
-      redirect_to application_path(app)
     else
       flash[:alert] = 'Reason Must be Provided'
-      redirect_to application_path(app)
     end
-  end
 
-  def destroy
+    redirect_to application_path(app)
   end
 
   private
