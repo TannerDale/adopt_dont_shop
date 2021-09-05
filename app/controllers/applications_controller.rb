@@ -25,9 +25,6 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def update
     app = current_application
     if !params[:application][:reason].blank?

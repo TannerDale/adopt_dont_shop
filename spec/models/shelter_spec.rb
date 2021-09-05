@@ -121,5 +121,41 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.average_adoptable_age).to eq(8.fdiv(2))
       end
     end
+
+    describe 'adopted pets' do
+      it '#adopted_pets' do
+        app = Application.create!(
+          name: 'Tanner',
+          address: '123',
+          city: 'a',
+          state: 'b',
+          zipcode: 'a',
+          reason: 'pets'
+        )
+        app.pets << @pet_2
+        app2 = Application.create!(
+          name: 'Tanner',
+          address: '123',
+          city: 'a',
+          state: 'b',
+          zipcode: 'a',
+          reason: 'pets'
+        )
+        app2.pets << @pet_4
+
+        app.update_attribute(:status, 2)
+        app2.update_attribute(:status, 2)
+
+        expect(@shelter_1.adopted_pets_count).to eq(0)
+
+        @pet_2.update_attribute(:adoptable, false)
+
+        expect(@shelter_1.adopted_pets_count).to eq(1)
+
+        @pet_4.update_attribute(:adoptable, false)
+
+        expect(@shelter_1.adopted_pets_count).to eq(2)
+      end
+    end
   end
 end
