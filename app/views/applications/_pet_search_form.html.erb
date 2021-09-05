@@ -1,0 +1,8 @@
+<%= form_with url: application_path(application.id), method: :get, local: true do |f|  %>
+    <h3>Search Pets:</h3>
+    <div class="form-floating mb-3">
+      <%= f.text_field :name, class: "form-control", id: "floatingInput", placeholder: 'Name' %>
+      <%= f.label :name, for: "floatingInput" %>
+    </div>
+  <%= f.submit 'Find', class: 'btn btn-primary' %>
+<% end %>
