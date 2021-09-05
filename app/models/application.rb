@@ -26,13 +26,13 @@ class Application < ApplicationRecord
     application_pets.find_by(pet_id: pet.id).id
   end
 
-  def check_status
+  def update_status!
     update_attribute(:status, 2) if approved?
     update_attribute(:status, 3) if rejected?
   end
 
   def approved?
-    application_pets.where(status: 'approved') == application_pets
+    !(application_pets.where.not(status: 'approved').exists?)
   end
 
   def rejected?

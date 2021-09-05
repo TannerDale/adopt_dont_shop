@@ -85,12 +85,12 @@ RSpec.describe Application, type: :model do
       @app.update_attribute(:status, 1)
     end
 
-    it 'can #approved? and #check_status' do
+    it 'can #approved? and #update_status!' do
       @app_pet.update_attribute(:status, 1)
 
       expect(@app.approved?).to be(false)
 
-      @app.check_status
+      @app.update_status!
 
       expect(@app.status).to eq('Pending')
 
@@ -98,7 +98,7 @@ RSpec.describe Application, type: :model do
 
       expect(@app.approved?).to be(true)
 
-      @app.check_status
+      @app.update_status!
 
       expect(@app.status).to eq('Accepted')
     end
@@ -116,12 +116,12 @@ RSpec.describe Application, type: :model do
       @app.update_attribute(:status, 1)
     end
 
-    it 'can #rejected? and #check_status' do
+    it 'can #rejected? and #update_status!' do
       @app_pet.update_attribute(:status, 1)
 
       expect(@app.rejected?).to be(false)
 
-      @app.check_status
+      @app.update_status!
 
       expect(@app.status).to eq('Pending')
 
@@ -129,7 +129,7 @@ RSpec.describe Application, type: :model do
 
       expect(@app.rejected?).to be(true)
 
-      @app.check_status
+      @app.update_status!
 
       expect(@app.status).to eq('Rejected')
     end
