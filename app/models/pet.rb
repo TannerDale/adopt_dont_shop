@@ -22,7 +22,7 @@ class Pet < ApplicationRecord
   }
 
   scope :pets_for_application, ->(app) {
-    joins(application_pets: :application)
+    joins(:applications)
     .where('applications.id = ? AND applications.status = ?', app.id, 2)
     .where('pets.adoptable = ?', true)
   }
