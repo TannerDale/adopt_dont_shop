@@ -3,3 +3,14 @@
 <p>The average age of adoptable pets is <%= @shelter.average_adoptable_age %> years old.</p>
 <p>There is <%= @shelter.number_adoptable %> pet available for adoption.</p>
 <p><%= @shelter.adopted_pets_count %> pets have been adopted from this shelter.</p>
+<h2>Action Required</h2>
+<ul>
+  <% @shelter.action_required.each do |pet| %>
+    <li><%= pet.name %></li>
+    <ul>
+      <% pet.pending_applications.each do |app| %>
+        <li><%= link_to app.name, admin_application_path(app) %>'s application</li>
+      <% end %>
+    </ul>
+  <% end %>
+</ul>

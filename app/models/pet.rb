@@ -13,6 +13,10 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
+  def pending_applications
+    applications.where(status: 1)
+  end
+
   scope :update_pets!, ->(app) {
     pets_for_application(app).update_all(adoptable: false)
   }

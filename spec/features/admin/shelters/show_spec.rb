@@ -46,41 +46,57 @@ RSpec.describe 'admin shelter show page' do
       expect(page).to have_content("There is 1 pet available for adoption.")
     end
 
-    it 'has number adopted pets' do
-      app = Application.create!(
-        name: 'Tanner',
-        address: '123',
-        city: 'a',
-        state: 'b',
-        zipcode: 'a',
-        reason: 'pets'
-      )
-      app2 = Application.create!(
-        name: 'Tanner',
-        address: '123',
-        city: 'a',
-        state: 'b',
-        zipcode: 'a',
-        reason: 'pets'
-      )
-      app.pets << @pet_2
-      app2.pets << @pet_3
-      app.update_attribute(:status, 2)
-      app2.update_attribute(:status, 2)
+    describe 'stats and action requried' do
+      before :each do
+        @app = Application.create!(
+          name: 'Tanner',
+          address: '123',
+          city: 'a',
+          state: 'b',
+          zipcode: 'a',
+          reason: 'pets'
+        )
+        @app2 = Application.create!(
+          name: 'Tanner',
+          address: '123',
+          city: 'a',
+          state: 'b',
+          zipcode: 'a',
+          reason: 'pets'
+        )
+        @app.pets << @pet_2
+        @app2.pets << @pet_3
+      end
 
-      visit admin_application_path(app)
-      click_button 'Approve'
+      it 'has number adopted pets' do
+        visit admin_application_path(@app)
+        click_button 'Approve'
 
-      visit admin_shelter_path(@shelter)
+        visit admin_shelter_path(@shelter)
 
-      expect(page).to have_content('1 pets have been adopted from this shelter.')
+        expect(page).to have_content('1 pets have been adopted from this shelter.')
 
-      visit admin_application_path(app2)
-      click_button 'Approve'
+        visit admin_application_path(@app2)
+        click_button 'Approve'
 
-      visit admin_shelter_path(@shelter)
+        visit admin_shelter_path(@shelter)
 
-      expect(page).to have_content('2 pets have been adopted from this shelter.')
+        expect(page).to have_content('2 pets have been adopted from this shelter.')
+      end
+
+      it 'has pets with action required' do
+        @app.update_attribute(:status, 1)
+        @app2.update_attribute(:status, 1)
+
+        visit admin_shelter_path(@shelter)
+
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to have_content(@pet_3.name)
+
+        @pet_2.pending_applications.each do |app|
+          expect(page).to have_link(app.name)
+        end
+      end
     end
   end
 end

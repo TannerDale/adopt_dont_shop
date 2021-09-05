@@ -56,24 +56,47 @@ RSpec.describe Pet, type: :model do
           state: 'state',
           zipcode: '12345'
         )
+        @application2 = Application.create(
+          name: 'Brynn',
+          address: '12345',
+          city: 'city',
+          state: 'state',
+          zipcode: '12345'
+        )
         @application.pets << @pet_1
         @application.pets << @pet_2
-        @application.update_attribute(:status, 2)
+        @application2.pets << @pet_1
+        @application2.pets << @pet_2
       end
 
       describe '.check_applications' do
         it 'can find pets for an application' do
+          @application.update_attribute(:status, 2)
           expect(Pet.pets_for_application(@application)).to eq([@pet_1, @pet_2])
         end
       end
 
       describe '.update_pets' do
         it 'can make pets not adoptable if it is on an approved applcation' do
+          @application.update_attribute(:status, 2)
           Pet.update_pets!(@application)
 
           [@pet_1, @pet_2].each do |pet|
             expect(pet.reload.adoptable).to be(false)
           end
+        end
+      end
+
+      describe '.pending_applications' do
+        it 'has all of its pending applications' do
+          @application.update_attribute(:status, 1)
+          @application2.update_attribute(:status, 1)
+
+          expect(@pet_1.pending_applications).to eq([@application, @application2])
+
+          @application2.update_attribute(:status, 2)
+
+          expect(@pet_1.pending_applications).to eq([@application])
         end
       end
     end
