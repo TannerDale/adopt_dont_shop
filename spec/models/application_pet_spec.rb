@@ -4,6 +4,16 @@ RSpec.describe ApplicationPet, type: :model do
   it { should belong_to :pet }
   it { should belong_to :application }
 
+  describe 'statuses' do
+    let(:status) { %w(pending approved rejected) }
+
+    it 'has all the statuses at the right index' do
+      status.each_with_index do |item, index|
+        expect(ApplicationPet.statuses[item]).to eq(index)
+      end
+    end
+  end
+
   describe 'methods' do
     before :each do
       @app = Application.create!(name: 'A', address: 'a', city: 'a', state: 'a', zipcode: 'a')
