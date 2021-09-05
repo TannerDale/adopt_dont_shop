@@ -53,4 +53,8 @@ class Shelter < ApplicationRecord
       'SELECT shelters.name, shelters.city FROM shelters WHERE shelters.id = ?', self.id
     ]
   end
+
+  def average_adoptable_age
+    pets.where(adoptable: true).average(:age)
+  end
 end
