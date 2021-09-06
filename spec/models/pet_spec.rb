@@ -69,13 +69,6 @@ RSpec.describe Pet, type: :model do
         @application2.pets << @pet_2
       end
 
-      describe '.check_applications' do
-        it 'can find pets for an application' do
-          @application.update_attribute(:status, 2)
-          expect(Pet.pets_for_application(@application)).to eq([@pet_1, @pet_2])
-        end
-      end
-
       describe '.update_pets' do
         it 'can make pets not adoptable if it is on an approved applcation' do
           @application.update_attribute(:status, 2)

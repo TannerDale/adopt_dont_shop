@@ -18,13 +18,7 @@ class Pet < ApplicationRecord
   end
 
   scope :update_pets!, ->(app) {
-    pets_for_application(app).update_all(adoptable: false)
-  }
-
-  scope :pets_for_application, ->(app) {
-    joins(:applications)
-    .where('applications.id = ? AND applications.status = ?', app.id, 2)
-    .where('pets.adoptable = ?', true)
+    app.pets.update_all(adoptable: false)
   }
 
   scope :search_for, ->(name) {
