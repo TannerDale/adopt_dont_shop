@@ -1,7 +1,7 @@
 <% if pet.adoptable %>
-  <%= button_to 'Approve', application_pet_path(application_pet(pet)), method: :patch, params: { application_id: application.id, status: 1 }, class: 'btn btn-success' %>
+  <%= button_to 'Approve', application_pet_path(application_pet(pet)), method: :patch, params: { application_id: application.id, status: 1 }, class: 'btn btn-outline-success btn-sm' %>
 <% else %>
    <p>Pet already approved for adoption.</p>
 <% end %>
-<%= button_to 'Reject', application_pet_path(application_pet(pet)), method: :patch, params: { application_id: application.id, status: 2 }, class: 'btn btn-danger' %>
+<%= button_to 'Reject', application_pet_path(application_pet(pet)), method: :patch, params: { application_id: application.id, status: 2 }, class: 'btn btn-outline-danger btn-sm' %>
 
