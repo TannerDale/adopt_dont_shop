@@ -6,6 +6,9 @@
   <%= f.submit "Search" %>
 <% end %>
 
+<br/>
+<%= link_to 'Start Application', new_application_path, class: 'btn btn-success' %>
+<br/><br/>
 
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
@@ -17,4 +20,3 @@
   <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
 <% end %>
 <br/>
-<%= link_to 'Start Application', new_application_path, class: 'btn btn-success' %>

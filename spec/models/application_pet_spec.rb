@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe ApplicationPet, type: :model do
   it { should belong_to :pet }
   it { should belong_to :application }
+  it { should validate_numericality_of :pet_id }
+  it { should validate_numericality_of :application_id }
 
   describe 'statuses' do
     let(:status) { %w(pending approved rejected) }
