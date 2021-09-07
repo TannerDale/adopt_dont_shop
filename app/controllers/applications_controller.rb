@@ -23,9 +23,8 @@ class ApplicationsController < ApplicationController
 
   def update
     app = current_application
-    if !params[:application][:reason].blank?
-      app.update!(application_params)
-      app.update_attribute(:status, 1)
+    if params[:application][:reason].present?
+      app.update!(application_params.merge({status: 1}))
     else
       flash[:alert] = 'Reason Must be Provided'
     end
