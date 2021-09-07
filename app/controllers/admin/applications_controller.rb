@@ -1,6 +1,10 @@
 class Admin::ApplicationsController < ApplicationController
-  before_action :current_application
+  before_action :current_application, except: :index
   helper_method :application_pet
+
+  def index
+    @applications = Application.all
+  end
 
   def show
   end
