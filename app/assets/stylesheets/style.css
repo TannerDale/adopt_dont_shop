@@ -1,0 +1,25 @@
+body {
+  background-color: #F0EBD8;
+}
+#navbar {
+  background-color: #0D1321;
+}
+h1 {
+  color: #0D1321;
+}
+h2 {
+  color: #0D1321;
+}
+
+h3 {
+  color: #0D1321;
+}
+p {
+  color: #0D1321;
+}
+a:link {
+  color: #0D1321;
+}
+a:visited {
+  color: #0D1321;
+}

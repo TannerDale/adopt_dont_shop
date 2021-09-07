@@ -28,7 +28,7 @@ RSpec.describe 'admin applications index' do
       app2.pets << pet1
       app2.pets << pet2
 
-      visit admin_applications_path(app1)
+      visit admin_applications_path
     end
 
     it 'has the applications info' do
@@ -38,9 +38,7 @@ RSpec.describe 'admin applications index' do
         expect(page).to have_content(app.address)
         expect(page).to have_content(app.city)
         expect(page).to have_content(app.state)
-        expect(page).to have_content(app.zipcode)
         expect(page).to have_content(app.reason)
-        expect(page).to have_content(app.pets.length)
       end
     end
   end

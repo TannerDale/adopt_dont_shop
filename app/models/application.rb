@@ -36,6 +36,6 @@ class Application < ApplicationRecord
   end
 
   def full_address
-    "#{address}, #{city}, #{state}, #{zipcode}"
+    "#{address}, #{city}, #{state}"
   end
 end

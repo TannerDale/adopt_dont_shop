@@ -1,8 +1,10 @@
 <h1>Admin Application Page</h1>
 
+<p>Application #<%= @application.id %></p>
+<p>Applicant Name: <%= @application.name %></p>
 <p>Application Status: <%= @application.status %></p>
-<h3>Pets for Application: <%= @application.id %></h3>
 
+<p><b>Desired Pets:</b></p>
 <% @application.pets.each do |pet| %>
   <div id="<%= pet.name %>-status">
     <p><%= pet.name %></p>

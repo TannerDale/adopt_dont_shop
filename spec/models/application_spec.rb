@@ -34,7 +34,7 @@ RSpec.describe Application, type: :model do
     ) }
 
     it '#full_address' do
-      expect(app.full_address).to eq('12345 Street St., Austin, Texas, 12345')
+      expect(app.full_address).to eq('12345 Street St., Austin, Texas')
     end
   end
 

@@ -1,0 +1,40 @@
+<h1>Admin Application Dashboard</h1>
+<br/>
+<div class="container">
+  <div class="row border border-dark rounded">
+    <div class="col" >
+      <p>Name</p>
+    </div>
+    <div class="col">
+      <p>Address</p>
+    </div>
+    <div class="col">
+      <p>Status</p>
+    </div>
+    <div class="col">
+      <p>Note</p>
+    </div>
+    <div class="col">
+      <p>Admin Page</p>
+    </div>
+  </div>
+  <% @applications.each do |application| %>
+    <div class="row border border-dark rounded">
+      <div class="col">
+        <%= application.name %>
+      </div>
+      <div class="col">
+        <%= application.full_address %>
+      </div>
+      <div class="col">
+        <%= application.status %>
+      </div>
+      <div class="col">
+        <%= application.reason || 'Not Submitted' %>
+      </div>
+      <div class="col">
+        <%= link_to 'View', admin_application_path(application.id), class: 'link-dark' %>
+      </div>
+    </div>
+  <% end %>
+</div>
