@@ -12,7 +12,11 @@ class ApplicationPetsController < ApplicationController
 
   def update
     app_pet = ApplicationPet.find(params[:id])
-    app_pet.update_attribute(:status, params[:status].to_i)
+    if params[:status] == '1' || params[:status] == '2'
+      app_pet.update(app_pet_params.merge(status: params[:status].to_i))
+    else
+      flash[:danger] = 'Invalid status value!'
+    end
 
     redirect_to admin_application_path(params[:application_id])
   end
