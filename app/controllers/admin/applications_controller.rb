@@ -1,5 +1,5 @@
 class Admin::ApplicationsController < ApplicationController
-  before_action :current_application, :update_statuses!
+  before_action :current_application
   helper_method :application_pet
 
   def show
@@ -13,15 +13,5 @@ class Admin::ApplicationsController < ApplicationController
 
   def application_pet(pet)
     @application.find_app_pet(pet)
-  end
-
-  def update_statuses!
-    @application.update_status!
-
-    update_pets! if @application.approved?
-  end
-
-  def update_pets!
-    Pet.update_pets!(@application)
   end
 end
