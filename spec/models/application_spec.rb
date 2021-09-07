@@ -24,6 +24,20 @@ RSpec.describe Application, type: :model do
     end
   end
 
+  describe 'full address' do
+    let(:app) { Application.create!(
+      name: 'Tanner',
+      address: '12345 Street St.',
+      city: 'Austin',
+      state: 'Texas',
+      zipcode: '12345'
+    ) }
+
+    it '#full_address' do
+      expect(app.full_address).to eq('12345 Street St., Austin, Texas, 12345')
+    end
+  end
+
   describe 'applications based on status' do
     it '#submitted?' do
       app = Application.create!(name: 'Test', address: '123', city: 'city', state: 'state', zipcode: '12345')

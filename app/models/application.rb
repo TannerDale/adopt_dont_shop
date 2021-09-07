@@ -34,4 +34,8 @@ class Application < ApplicationRecord
   def rejected?
     application_pets.where(status: 'rejected').exists?
   end
+
+  def full_address
+    "#{address}, #{city}, #{state}, #{zipcode}"
+  end
 end
