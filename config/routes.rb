@@ -44,4 +44,6 @@ Rails.application.routes.draw do
     resources :applications, only: [:index, :show]
     resources :shelters, only: [:index, :show]
   end
+
+  resources :pet_pictures, only: :index
 end

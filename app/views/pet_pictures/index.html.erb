@@ -1,0 +1,14 @@
+<br/>
+<% if @picture %>
+  <%= image_tag "#{@picture.picture}" %>
+<% end %>
+<br/>
+<br/>
+<h3>Get a random dog picture!</h3>
+
+<%= form_with url: "/pet_pictures", method: :get do |f| %>
+  <%= f.label 'Search by breed:' %>
+  <%= f.text_field :breed, required: true %>
+  <%= f.submit 'Search Pictures' %>
+<% end %>
+
