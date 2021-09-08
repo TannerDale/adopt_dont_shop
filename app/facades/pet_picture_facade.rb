@@ -3,9 +3,9 @@ class PetPictureFacade
     def get_a_picture(breed)
       data = PetPictureService.call_for_picture(breed)
       if data.has_value?('success')
-        PetPicture.new(data)
+        PetPicture.picture(data)
       else
-        PetPicture.new({message: "image_not_found.png"})
+        PetPicture.picture({message: "image_not_found.png"})
       end
     end
   end

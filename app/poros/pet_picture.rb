@@ -1,7 +1,5 @@
 class PetPicture
-  attr_reader :picture
-
-  def initialize(data)
-    @picture = data[:message]
+  def self.picture(data)
+    data[:message]
   end
 end
