@@ -5,12 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require File.expand_path('../seeds/breed_fetcher', __FILE__)
+
 Shelter.destroy_all
 Application.destroy_all
 VeterinaryOffice.destroy_all
 Application.destroy_all
 Pet.destroy_all
 ApplicationPet.destroy_all
+DogBreed.destroy_all
 
 shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 pet1 = shelter1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
@@ -49,3 +52,6 @@ application3 = Application.create!(
   state: 'Texas',
   zipcode: '12345'
 )
+BreedFetcher.formatted_breeds.each do |breed|
+  DogBreed.create!(name: breed)
+end

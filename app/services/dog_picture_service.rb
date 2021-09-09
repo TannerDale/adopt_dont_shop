@@ -1,4 +1,4 @@
-class PetPictureService
+class DogPictureService
   class << self
     def call_for_picture(breed)
       response = conn.get("/api/breed/#{breed}/images/random")
