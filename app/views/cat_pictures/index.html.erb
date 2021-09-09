@@ -1,0 +1,17 @@
+<br/>
+<h1>Get a random cat picture!</h1>
+<br/>
+<%= button_to 'New Picture', cat_pictures_path, method: :get %>
+<br/>
+<% if @cat.name %>
+  <p>Cat's name: <%= @cat.name %>!</p>
+  <br/>
+<% end %>
+
+<% if @cat.height > 650 || @cat.width > 1000 %>
+  <%= image_tag "#{@cat.picture}", height: '50%', width: '50%' %>
+<% else %>
+  <%= image_tag "#{@cat.picture}" %>
+<% end %>
+<br/><br/>
+<p>Pictures from <%= link_to 'The Cat API', 'https://thecatapi.com/' %></p>

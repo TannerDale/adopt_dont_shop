@@ -47,4 +47,5 @@ Rails.application.routes.draw do
 
   resources :dog_pictures, only: :index
   resources :fox_pictures, only: :index
+  resources :cat_pictures, only: :index
 end

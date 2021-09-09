@@ -4,7 +4,7 @@ class DogPictureFacade
        if breed == 'shibe'
         DogPicture.picture(get_shibe)
       else
-        DogPicture.picture(get_by_breed(breed))
+        DogPicture.picture(get_by_breed(breed.downcase))
      end
     end
 
