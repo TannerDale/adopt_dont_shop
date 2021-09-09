@@ -14,12 +14,15 @@
   <%= f.submit 'Search Pictures' %>
 <% end %>
 <br/>
-<%= button_to "New Picture", dog_pictures_path, method: :get, params: { breed: params[:breed]} unless params[:shibe] %>
+
+<%= button_to "New Picture", dog_pictures_path, method: :get, params: { breed: params[:breed]} %>
 <br/>
 <h4>Like Shibes? This button is for you!</h4>
 <%= button_to "Shibe!!", dog_pictures_path, method: :get, params: { breed: 'shibe' } %>
 <br/>
 
-<% if @picture %>
-  <%= image_tag "#{@picture}", size: "500x500" %>
-<% end %>
+<%= image_tag "#{@picture}", size: "500x500" if @picture %>
+<br/>
+<br/>
+<p>Pictures from <%= link_to 'Dog CEO', 'https://dog.ceo/' %></p>
+<p>Shibe pictures from <%= link_to 'Shibe Online', 'http://shibe.online/' %></p>
