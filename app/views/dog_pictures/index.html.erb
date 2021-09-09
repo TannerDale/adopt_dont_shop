@@ -14,8 +14,10 @@
   <%= f.submit 'Search Pictures' %>
 <% end %>
 <br/>
-
-<%= button_to "New Picture", dog_pictures_path, method: :get, params: { breed: params[:breed]} %>
+<%= button_to "New Picture", dog_pictures_path, method: :get, params: { breed: params[:breed]} unless params[:shibe] %>
+<br/>
+<h4>Like Shibes? This button is for you!</h4>
+<%= button_to "Shibe!!", dog_pictures_path, method: :get, params: { breed: 'shibe' } %>
 <br/>
 
 <% if @picture %>

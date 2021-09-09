@@ -46,5 +46,5 @@ Rails.application.routes.draw do
   end
 
   resources :dog_pictures, only: :index
-
+  resources :fox_pictures, only: :index
 end

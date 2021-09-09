@@ -1,5 +1,5 @@
 class DogPicture
   def self.picture(data)
-    @picture = data[:message]
+    data[:message]
   end
 end
