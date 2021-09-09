@@ -1,4 +1,4 @@
-class PetPictureService
+class DogPictureService
   class << self
     def call_for_picture(breed)
       response = conn.get("/api/breed/#{breed}/images/random")
@@ -12,7 +12,7 @@ class PetPictureService
     end
 
     def parse_data(response)
-      data = JSON.parse(response.body, symbolize_names: true)
+      JSON.parse(response.body, symbolize_names: true)
     end
   end
 end
